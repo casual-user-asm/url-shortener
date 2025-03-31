@@ -8,9 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func init() {
 	handlers.InitKafka()
 	go kafka.StartConsumer()
+}
+
+func main() {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -19,5 +22,5 @@ func main() {
 	})
 	routers.UrlShortenerRouter(r)
 	r.GET("/:shortcode", handlers.RedirectURL)
-	r.Run()
+	r.Run(":8080")
 }
