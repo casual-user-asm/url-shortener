@@ -33,7 +33,7 @@ A scalable URL shortener with Redis, and Kafka for real-time analytics.
 ```
   POST /shortener/create
 
-  Example Request:
+  Example fields for JSON:
   
   {
     "originalURL": "https://google.com"
