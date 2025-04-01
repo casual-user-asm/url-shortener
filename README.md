@@ -32,4 +32,10 @@ A scalable URL shortener with Redis, and Kafka for real-time analytics.
 #### Create Short URL from Original URL
 ```
   POST /shortener/create
+
+  Example Request:
+  
+  {
+    "originalURL": "https://google.com"
+  }
 ```
