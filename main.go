@@ -15,11 +15,13 @@ func init() {
 
 func main() {
 	r := gin.Default()
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Welcome to URL SHORTENER SERVICE, your entry point is http://localhost:8080/shortener/create",
+			"message": "Welcome to URL SHORTENER SERVICE",
 		})
 	})
+
 	routers.UrlShortenerRouter(r)
 	r.GET("/:shortcode", handlers.RedirectURL)
 	r.Run(":8080")

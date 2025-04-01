@@ -1,10 +1,10 @@
-version: '2'
-
 services:
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
+    networks:
+      - backend
 
   kafka:
     image: wurstmeister/kafka:latest
@@ -21,3 +21,35 @@ services:
       KAFKA_CREATE_TOPICS: "shortened-urls:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - backend
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  shortener_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - zookeeper
+      - kafka
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - KAFKA_HOST=kafka
+      - KAFKA_PORT=9093
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

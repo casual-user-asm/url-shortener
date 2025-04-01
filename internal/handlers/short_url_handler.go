@@ -15,7 +15,7 @@ var kafkaWriter *kafka.Writer
 
 func InitKafka() {
 	kafkaWriter = &kafka.Writer{
-		Addr:     kafka.TCP("localhost:9092"),
+		Addr:     kafka.TCP("kafka:9093"),
 		Topic:    "shortened-urls",
 		Balancer: &kafka.LeastBytes{},
 	}
@@ -46,6 +46,7 @@ func UrlShortener(c *gin.Context) {
 	if err != nil {
 		log.Printf("Failed to publish message: %v", err)
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Your short url - http://localhost:8080/" + short_url,
 	})
@@ -61,6 +62,6 @@ func RedirectURL(c *gin.Context) {
 		})
 		return
 	}
-	c.Redirect(http.StatusFound, original)
 
+	c.Redirect(http.StatusFound, original)
 }

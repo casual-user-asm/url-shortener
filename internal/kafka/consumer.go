@@ -10,7 +10,7 @@ import (
 
 func StartConsumer() {
 	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:  []string{"localhost:9092"},
+		Brokers:  []string{"kafka:9093"},
 		Topic:    "shortened-urls",
 		GroupID:  "shortened-urls-group",
 		MinBytes: 1,
@@ -25,7 +25,6 @@ func StartConsumer() {
 			log.Println("Error reading message: ", err)
 			continue
 		}
-
 		fmt.Printf("Received: OriginalURL: %s => ShortURL: http://localhost:8080/%s\n", msg.Key, msg.Value)
 	}
 }

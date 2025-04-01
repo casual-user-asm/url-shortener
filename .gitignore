@@ -1,0 +1,41 @@
+# Go build artifacts
+bin/
+obj/
+*.exe
+*.out
+*.test
+
+# Dependency directories
+vendor/
+
+# Go workspace and editor files
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+
+# IDE and editor directories/files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Coverage output
+coverage.out
+*.coverprofile
+
+# Test output
+*.test
+
+# Build directory
+build/
+
+# Docker-related
+*.docker

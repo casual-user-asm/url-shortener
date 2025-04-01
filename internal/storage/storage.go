@@ -10,7 +10,7 @@ import (
 var ctx = context.Background()
 
 var client = redis.NewClient(&redis.Options{
-	Addr:     "localhost:6379",
+	Addr:     "redis:6379",
 	Password: "", // No password set
 	DB:       0,  // Use default DB
 	Protocol: 2,  // Connection protocol
@@ -26,6 +26,7 @@ func SaveShortUrl(originalUrl, shortUrl string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to save short URL: %v", err)
 	}
+
 	err = client.HSet(ctx, "original_to_short", originalUrl, shortUrl).Err()
 	if err != nil {
 		return "", fmt.Errorf("faied to save originalURL: %v", err)
@@ -39,5 +40,6 @@ func GetOriginalUrl(shortUrl string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to obtain original URL: %v", err)
 	}
+
 	return originalUrl, nil
 }
